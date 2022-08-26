@@ -53,8 +53,13 @@ interface IRational {
 	 * @throws IllegalStateException
 	 *             if the numerator of this rational value is 0
 	 */
-	default IRational invert() throws IllegalStateException {
-		throw new NotImplementedException();
+	default IRational invert() throws IllegalStateException {			
+		
+		if (getNumerator() == 0) {
+			throw new IllegalStateException();
+		}
+		
+		return construct(getDenominator(), getNumerator());			
 	}
 
 	/**
@@ -69,7 +74,14 @@ interface IRational {
 	 *             if that is null
 	 */
 	default IRational add(IRational that) throws IllegalArgumentException {
-		throw new NotImplementedException();
+		
+		if (that == null) {																									// all tests passed
+			throw new IllegalArgumentException();
+		} else {
+			int newAddNum = (getNumerator() * that.getDenominator()) + (that.getNumerator() * getDenominator());			
+			int newAddDenom = (getDenominator() * that.getDenominator());
+			return construct(newAddNum, newAddDenom);
+		}
 	}
 
 	/**
@@ -84,7 +96,14 @@ interface IRational {
 	 *             if that is null
 	 */
 	default IRational sub(IRational that) throws IllegalArgumentException {
-		throw new NotImplementedException();
+		
+		if (that == null) {																								// all tests passed
+			throw new IllegalArgumentException();
+		} else {
+			int newSubNum = (getNumerator() * that.getDenominator()) - (that.getNumerator() * getDenominator());		
+			int newSubDenom = (getDenominator() * that.getDenominator());
+			return construct(newSubNum, newSubDenom);
+		}
 	}
 
 	/**
@@ -99,7 +118,14 @@ interface IRational {
 	 *             if that is null
 	 */
 	default IRational mul(IRational that) throws IllegalArgumentException {
-		throw new NotImplementedException();
+		
+		if (that == null) {																	
+			throw new IllegalArgumentException();
+		} else {
+			int newMulNum = (getNumerator() * that.getNumerator());														
+			int newMulDenom = (getDenominator() * that.getDenominator());
+			return construct(newMulNum, newMulDenom);
+		}
 	}
 
 	/**
@@ -114,6 +140,13 @@ interface IRational {
 	 *             if that is null or if the numerator of that is 0
 	 */
 	default IRational div(IRational that) throws IllegalArgumentException {
-		throw new NotImplementedException();
+		
+		if (that == null || getNumerator() == 0) {											
+			throw new IllegalArgumentException();
+		} else {
+			int newDivNum = (getNumerator() * that.getDenominator());						
+			int newDivDenom = (getDenominator() * that.getNumerator());
+			return construct(newDivNum, newDivDenom);
+		}
 	}
 }

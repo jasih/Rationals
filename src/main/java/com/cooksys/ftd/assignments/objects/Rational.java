@@ -13,9 +13,20 @@ public class Rational implements IRational {
      * @param numerator   the numerator of the rational value
      * @param denominator the denominator of the rational value
      * @throws IllegalArgumentException if the given denominator is 0
-     */
+     */ 
+	
+	private int numerator;
+	private int denominator;
+	
+	
     public Rational(int numerator, int denominator) throws IllegalArgumentException {
-        throw new NotImplementedException();
+        
+    	if (denominator == 0) {
+        	throw new IllegalArgumentException();
+        }
+    	
+    	this.numerator = numerator;
+        this.denominator = denominator;
     }
 
     /**
@@ -23,7 +34,8 @@ public class Rational implements IRational {
      */
     @Override
     public int getNumerator() {
-        throw new NotImplementedException();
+       
+    	return numerator;
     }
 
     /**
@@ -31,7 +43,8 @@ public class Rational implements IRational {
      */
     @Override
     public int getDenominator() {
-        throw new NotImplementedException();
+    	
+    	return denominator;
     }
 
     /**
@@ -45,9 +58,16 @@ public class Rational implements IRational {
      * @return the constructed rational value
      * @throws IllegalArgumentException if the given denominator is 0
      */
+    
+    
     @Override
     public Rational construct(int numerator, int denominator) throws IllegalArgumentException {
-        throw new NotImplementedException();
+       
+    	if (denominator == 0) {										
+        	throw new IllegalArgumentException();
+        }
+        
+    	return new Rational(numerator, denominator);
     }
 
     /**
@@ -58,7 +78,14 @@ public class Rational implements IRational {
      */
     @Override
     public boolean equals(Object obj) {
-        throw new NotImplementedException();
+    	
+    	if (!(obj instanceof Rational)) {
+    		return false;
+    	}
+    
+    	Rational that = (Rational) obj;
+    	return numerator == that.numerator && denominator == that.denominator;
+        
     }
 
     /**
@@ -69,7 +96,19 @@ public class Rational implements IRational {
      * @return a string representation of this rational value
      */
     @Override
-    public String toString() {
-        throw new NotImplementedException();
+    public String toString() {													
+    	
+    	if (numerator > 0 && denominator > 0) {
+    		return numerator + "/" + denominator;
+    	} else if (numerator < 0 && denominator < 0) {
+    		return numerator + "/" + denominator;
+    	} else if (numerator > 0 && denominator < 0) {
+    		return numerator * -1 + "/" + denominator;
+    	} else if (numerator < 0 && denominator > 0) {
+    		return numerator * -1 + "/" + denominator;
+    	}
+    	
+    	return numerator + "/" + denominator;
+    	
     }
 }
